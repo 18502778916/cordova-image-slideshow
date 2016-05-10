@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import io.cordova.hellocordova.R;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -40,7 +39,7 @@ public class SampleAdapter extends PagerAdapter {
 
         final PhotoView photoView=new PhotoView(container.getContext());
         Log.e("x", "1");
-        Glide.with(activity).load(listUrl.get(position)).placeholder(R.drawable.icon).into(photoView);
+        Glide.with(activity).load(listUrl.get(position)).into(photoView);
 
         photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
