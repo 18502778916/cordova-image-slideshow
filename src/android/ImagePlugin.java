@@ -21,11 +21,12 @@ public class ImagePlugin extends CordovaPlugin {
     CallbackContext callbackContext;
     ViewPager viewPager;
     List<String> listUrl=new ArrayList<String>();
-
+    int imageNum;
     @Override
     public boolean execute(String action, final JSONArray args, CallbackContext callbackContext) throws JSONException {
         this.callbackContext=callbackContext;
         if ("showImages".equals(action)){
+            imageNum=args.getInt(1);
             cordova.getThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
@@ -51,6 +52,7 @@ public class ImagePlugin extends CordovaPlugin {
 
             viewPager = new HackyViewPager(cordovaInterface.getActivity());
             viewPager.setAdapter(new SampleAdapter(cordovaInterface.getActivity(), listUrl));
+            viewPager.setCurrentItem(imageNum-1);
             try {
                 cordovaInterface.getActivity().runOnUiThread(
                         new Runnable() {
