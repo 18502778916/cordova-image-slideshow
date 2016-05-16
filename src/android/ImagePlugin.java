@@ -1,26 +1,23 @@
 package org.apache.cordova.images;
 
-import android.graphics.Color;
-import android.support.v4.view.ViewPager;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.ViewGroup;
 
 import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by zhangchong on 16/4/1.
  */
 public class ImagePlugin extends CordovaPlugin {
     CallbackContext callbackContext;
-    ViewPager viewPager;
-    List<String> listUrl=new ArrayList<String>();
+
+    ArrayList<String> listUrl=new ArrayList<String>();
     int imageNum;
     @Override
     public boolean execute(String action, final JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -36,44 +33,22 @@ public class ImagePlugin extends CordovaPlugin {
                             Log.e("x", "" + jsonArray.get(i));
                             listUrl.add(jsonArray.getString(i));
                         }
-                        showImage(listUrl);
+                        Intent intent=new Intent(cordova.getActivity(),ImageShowActivity.class);
+                        Bundle bundle=new Bundle();
+                        bundle.putStringArrayList("listUrl",listUrl);
+                        bundle.putInt("imageNum",imageNum);
+                        intent.putExtras(bundle);
+                        cordova.getActivity().startActivity(intent);
+
                     }catch (Exception e){
                         e.printStackTrace();
                     }
                 }
             });
+
         }
         return true;
     }
 
 
-    private void showImage(List<String> listUrl) {
-        final CordovaInterface cordovaInterface = this.cordova;
-
-            viewPager = new HackyViewPager(cordovaInterface.getActivity());
-            viewPager.setAdapter(new SampleAdapter(cordovaInterface.getActivity(), listUrl));
-            viewPager.setCurrentItem(imageNum-1);
-            try {
-                cordovaInterface.getActivity().runOnUiThread(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                                int backGroundColor = Color.parseColor("#000000");
-                                viewPager.setBackgroundColor(backGroundColor);
-                                cordovaInterface.getActivity().addContentView(viewPager, layoutParams);
-
-
-                            }
-                        }
-
-                );
-            } catch (Exception e) {
-                Log.e("xx", e.toString());
-                e.printStackTrace();
-            }
-
-
-
-    }
 }

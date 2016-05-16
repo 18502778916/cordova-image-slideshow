@@ -44,7 +44,7 @@ public class SampleAdapter extends PagerAdapter {
         photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
             public void onPhotoTap(View view, float v, float v1) {
-                container.setVisibility(View.GONE);
+                //container.setVisibility(View.GONE);
             }
         });
         photoView.setOnLongClickListener(new View.OnLongClickListener() {

@@ -18,9 +18,12 @@
         <config-file target="AndroidManifest.xml" parent="/*">
          <uses-permission android:name="android.permission.INTERNET" />
         </config-file>
+        
         <source-file src="src/android/ImagePlugin.java" target-dir="src/org/apache/cordova/images" />
          <source-file src="src/android/SampleAdapter.java" target-dir="src/org/apache/cordova/images" />
          <source-file src="src/android/HackyViewPager.java" target-dir="src/org/apache/cordova/images" />
+        <source-file src="src/android/ImageShowActivity.java" target-dir="src/org/apache/cordova/images" />
+        <source-file src="layout/image_show_activity.xml" target-dir="res/layout" />
         <source-file src="libs/photoview-library-1.2.2.jar" target-dir="libs" />
         <framework src="com.android.support:appcompat-v7:23.2.1"></framework>
         <framework src="com.github.bumptech.glide:glide:3.6.1"></framework>
