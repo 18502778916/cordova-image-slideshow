@@ -1,6 +1,7 @@
 package org.apache.cordova.images;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -9,7 +10,7 @@ import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.view.Window;
 
-
+import com.example.show.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +20,19 @@ import java.util.List;
  */
 public class ImageShowActivity extends Activity {
     ViewPager viewPager;
-    ImageShowActivity imageShowActivity;
     int imageNum;
     ArrayList listUrl;
+    boolean isOpen;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.image_show_activity);
+
         init();
         showImage(listUrl,imageNum);
+
     }
 
     private void init(){
@@ -62,7 +66,7 @@ public class ImageShowActivity extends Activity {
 
             );
         } catch (Exception e) {
-            Log.e("xx", e.toString());
+            Log.e("Exception", e.toString());
             e.printStackTrace();
         }
     }
@@ -70,7 +74,12 @@ public class ImageShowActivity extends Activity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK){
-            Log.e("xx","jr");
+            Log.e("onKeyDown","KEYCODE_BACK");
+            isOpen=false;
+            Intent mIntent = new Intent();
+            mIntent.putExtra("isOpen", isOpen);
+            // 设置结果，并进行传送
+            setResult(1, mIntent);
             this.finish();
             return false;
         }
