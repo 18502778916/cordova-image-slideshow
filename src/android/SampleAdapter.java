@@ -1,6 +1,7 @@
 package org.apache.cordova.images;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 public class SampleAdapter extends PagerAdapter {
     Activity activity;
     List<String> listUrl;
+    boolean isOpen;
     SampleAdapter(Activity activity, List<String> listUrl){
         this.activity=activity;
         this.listUrl=listUrl;
@@ -45,6 +47,12 @@ public class SampleAdapter extends PagerAdapter {
             @Override
             public void onPhotoTap(View view, float v, float v1) {
                 //container.setVisibility(View.GONE);
+                isOpen=false;
+                Intent mIntent = new Intent();
+                mIntent.putExtra("isOpen", isOpen);
+                // 设置结果，并进行传送
+                activity.setResult(1, mIntent);
+                activity.finish();
             }
         });
         photoView.setOnLongClickListener(new View.OnLongClickListener() {
