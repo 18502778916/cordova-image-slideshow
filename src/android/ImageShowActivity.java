@@ -1,4 +1,4 @@
-package org.apache.cordova.images;
+package org.km.plugins.image_slideshow;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.view.Window;
 
-import com.example.show.R;
+import _PACKAGE_NAME_;
 
 import java.util.ArrayList;
 import java.util.List;

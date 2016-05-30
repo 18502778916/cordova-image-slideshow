@@ -1,4 +1,4 @@
-package org.apache.cordova.images;
+package org.km.plugins.image_slideshow;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

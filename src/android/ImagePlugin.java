@@ -1,4 +1,4 @@
-package org.apache.cordova.images;
+package org.km.plugins.image_slideshow;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +27,7 @@ public class ImagePlugin extends CordovaPlugin {
     @Override
     public boolean execute(String action, final JSONArray args, CallbackContext callbackContext) throws JSONException {
         this.callbackContext=callbackContext;
-        if ("showImages".equals(action)){
+        if ("show".equals(action)){
             imageNum=args.getInt(1);
             isOpen=true;
             try {

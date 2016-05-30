@@ -1,4 +1,4 @@
-package org.apache.cordova.images;
+package org.km.plugins.image_slideshow;
 
 import android.app.Activity;
 import android.content.Intent;
