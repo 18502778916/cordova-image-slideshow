@@ -36,6 +36,7 @@ public class ImageShowActivity extends Activity {
     }
 
     private void init(){
+        listUrl=null;
         Bundle bundle=getIntent().getExtras();
         imageNum=bundle.getInt("imageNum");
         listUrl=bundle.getStringArrayList("listUrl");

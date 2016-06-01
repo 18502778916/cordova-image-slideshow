@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class ImagePlugin extends CordovaPlugin {
     CallbackContext callbackContext;
     public boolean isOpen;
-    ArrayList<String> listUrl=new ArrayList<String>();
+    ArrayList<String> listUrl;
     int imageNum;
     public Handler handler;
 
@@ -31,8 +31,7 @@ public class ImagePlugin extends CordovaPlugin {
             imageNum=args.getInt(1);
             isOpen=true;
             try {
-
-
+                listUrl==new ArrayList<String>();
                 JSONArray jsonArray = args.getJSONArray(0);
                 for (int i=0; i < jsonArray.length(); i++) {
                     Log.e("x", "" + jsonArray.get(i));
