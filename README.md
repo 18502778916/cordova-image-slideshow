@@ -21,4 +21,6 @@ imageIndex为图片设置起始图。从1开始。
 
 image_slideshow.show(["url1","url2","url3",......],imageIndex);
 
-image_slideshow.showBase64(["url1","url2","url3",......],imageIndex);
+image_slideshow.showBase64(["base64","base64","base64",......],imageIndex);
+
+一张图显示同理
