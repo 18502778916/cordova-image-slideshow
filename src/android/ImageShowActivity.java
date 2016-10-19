@@ -32,7 +32,7 @@ public class ImageShowActivity extends Activity {
         setContentView(R.layout.image_show_activity);
 
         init();
-        showImage(listUrl,imageNum，type);
+        showImage(listUrl,imageNum,type);
 
     }
 
