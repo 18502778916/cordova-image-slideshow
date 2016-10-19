@@ -28,6 +28,7 @@ public class ImagePlugin extends CordovaPlugin {
     public boolean execute(String action, final JSONArray args, CallbackContext callbackContext) throws JSONException {
         this.callbackContext=callbackContext;
         if ("show".equals(action)){
+            Log.e("xx", "1");
             imageNum=args.getInt(1);
             isOpen=true;
             try {
@@ -41,16 +42,40 @@ public class ImagePlugin extends CordovaPlugin {
                 Bundle bundle = new Bundle();
                 bundle.putStringArrayList("listUrl", listUrl);
                 bundle.putInt("imageNum", imageNum);
+                bundle.putString("type","url");
                 intent.putExtras(bundle);
                 this.cordova.startActivityForResult((CordovaPlugin) this, intent, 1);
                 Log.e("x",""+isOpen);
             }catch (Exception e){
                 e.printStackTrace();
             }
-
-
+            return true;
+        }else if ("showBase64".equals(action)){
+            Log.e("xx", "2");
+                imageNum=args.getInt(1);
+                isOpen=true;
+                try {
+                    listUrl=new ArrayList<String>();
+                    JSONArray jsonArray = args.getJSONArray(0);
+                    for (int i=0; i < jsonArray.length(); i++) {
+                        Log.e("x", "" + jsonArray.get(i));
+                        listUrl.add(jsonArray.getString(i));
+                    }
+                    Intent intent = new Intent(this.cordova.getActivity(),ImageShowActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList("listUrl", listUrl);
+                    bundle.putInt("imageNum", imageNum);
+                    bundle.putString("type","base64");
+                    intent.putExtras(bundle);
+                    this.cordova.startActivityForResult((CordovaPlugin) this, intent, 1);
+                    Log.e("x",""+isOpen);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            return true;
+        }else {
+            return false;
         }
-        return true;
     }
 
     @Override

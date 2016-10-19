@@ -20,10 +20,18 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 public class SampleAdapter extends PagerAdapter {
     Activity activity;
     List<String> listUrl;
+    String type;
     boolean isOpen;
-    SampleAdapter(Activity activity, List<String> listUrl){
+    SampleAdapter(Activity activity, List<String> listUrl,String type){
         this.activity=activity;
         this.listUrl=listUrl;
+        this.type=type;
+    }
+
+    private byte[] baseToByte (String baseStr){
+        byte[] bitmapArray;
+        bitmapArray = Base64.decode(baseStr, 0);
+        return bitmapArray;
     }
 
     @Override
@@ -40,8 +48,16 @@ public class SampleAdapter extends PagerAdapter {
     public Object instantiateItem(final ViewGroup container, final int position) {
 
         final PhotoView photoView=new PhotoView(container.getContext());
-        Log.e("x", "1");
-        Glide.with(activity).load(listUrl.get(position)).into(photoView);
+        List<byte[]> baseList=new ArrayList<byte[]>();
+        if (type.equals("base64")){
+            for (int i = 0; i < listUrl.size(); i++) {
+                byte[] bytes=baseToByte(listUrl.get(i));
+                baseList.add(bytes);
+            }
+            Glide.with(activity).load(baseList.get(position)).into(photoView);
+        }else {
+            Glide.with(activity).load(listUrl.get(position)).into(photoView);
+        }
 
         photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override

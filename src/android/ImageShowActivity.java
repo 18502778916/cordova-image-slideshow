@@ -22,6 +22,7 @@ public class ImageShowActivity extends Activity {
     ViewPager viewPager;
     int imageNum;
     ArrayList listUrl;
+    String type;
     boolean isOpen;
 
     @Override
@@ -40,6 +41,7 @@ public class ImageShowActivity extends Activity {
         Bundle bundle=getIntent().getExtras();
         imageNum=bundle.getInt("imageNum");
         listUrl=bundle.getStringArrayList("listUrl");
+        type=bundle.getString("type");
         for (int i=0;i<=listUrl.size()-1;i++){
             Log.e("listUrl",""+listUrl.get(i));
             Log.e("imageNum",""+imageNum);
@@ -47,9 +49,9 @@ public class ImageShowActivity extends Activity {
 
     }
 
-    private void showImage(List<String> listUrl,int imageNum) {
+    private void showImage(List<String> listUrl,int imageNum,String type) {
         viewPager = new HackyViewPager(this);
-        viewPager.setAdapter(new SampleAdapter(this, listUrl));
+        viewPager.setAdapter(new SampleAdapter(this, listUrl,type));
         viewPager.setCurrentItem(imageNum-1);
         try {
             this.runOnUiThread(
