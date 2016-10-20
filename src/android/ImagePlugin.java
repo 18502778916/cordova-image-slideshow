@@ -1,6 +1,8 @@
 package org.km.plugins.image_slideshow;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -57,13 +59,18 @@ public class ImagePlugin extends CordovaPlugin {
                 try {
                     listUrl=new ArrayList<String>();
                     JSONArray jsonArray = args.getJSONArray(0);
+                    SharedPreferences sps = this.cordova.getActivity().getSharedPreferences("base64", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sps.edit();
                     for (int i=0; i < jsonArray.length(); i++) {
                         Log.e("x", "" + jsonArray.get(i));
                         listUrl.add(jsonArray.getString(i));
+                        editor.putString("base64Img", jsonArray.getString(i));
+                        editor.commit();
+                        Log.e("cg","spscg");
                     }
                     Intent intent = new Intent(this.cordova.getActivity(),ImageShowActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putStringArrayList("listUrl", listUrl);
+                    bundle.putStringArrayList("listUrl", null);
                     bundle.putInt("imageNum", imageNum);
                     bundle.putString("type","base64");
                     intent.putExtras(bundle);

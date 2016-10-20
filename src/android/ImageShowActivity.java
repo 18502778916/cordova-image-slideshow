@@ -1,7 +1,9 @@
 package org.km.plugins.image_slideshow;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -37,14 +39,17 @@ public class ImageShowActivity extends Activity {
     }
 
     private void init(){
-        listUrl=null;
+        listUrl=new ArrayList();
         Bundle bundle=getIntent().getExtras();
         imageNum=bundle.getInt("imageNum");
-        listUrl=bundle.getStringArrayList("listUrl");
+        SharedPreferences sps = this.getSharedPreferences("base64", Context.MODE_PRIVATE);
+        String base64Img =sps.getString("base64Img", "");
         type=bundle.getString("type");
-        for (int i=0;i<=listUrl.size()-1;i++){
-            Log.e("listUrl",""+listUrl.get(i));
-            Log.e("imageNum",""+imageNum);
+        if (type.equals("base64")){
+            //Log.e("spscg",base64Img);
+            listUrl.add(base64Img);
+        }else {
+            listUrl=bundle.getStringArrayList("listUrl");
         }
 
     }
