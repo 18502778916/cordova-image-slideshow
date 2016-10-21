@@ -35,21 +35,11 @@ public class ImagePlugin extends CordovaPlugin {
             isOpen=true;
             try {
                 listUrl=new ArrayList<String>();
-               this.cordova.getThreadPool().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        listUrl=new ArrayList<String>();
-                        try {
-                            JSONArray jsonArray = args.getJSONArray(0);
-                            for (int i=0; i < jsonArray.length(); i++) {
-                                Log.e("x", "" + jsonArray.get(i));
-                                listUrl.add(jsonArray.getString(i));
-                            }
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                JSONArray jsonArray = args.getJSONArray(0);
+                for (int i=0; i < jsonArray.length(); i++) {
+                    Log.e("x", "" + jsonArray.get(i));
+                    listUrl.add(jsonArray.getString(i));
+                }
                 Intent intent = new Intent(this.cordova.getActivity(),ImageShowActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putStringArrayList("listUrl", listUrl);
@@ -67,18 +57,19 @@ public class ImagePlugin extends CordovaPlugin {
                 imageNum=args.getInt(1);
                 isOpen=true;
                 try {
-                    listUrl=new ArrayList<String>();
-                    this.cordova.getThreadPool().execute(new Runnable() {
+                listUrl=new ArrayList<String>();
+                //JSONArray jsonArray = args.getJSONArray(0);
+                this.cordova.getThreadPool().execute(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            JSONArray jsonArray = args.getJSONArray(0);
+                            JSONArray jsonArray2 = args.getJSONArray(0);
                             SharedPreferences sps = cordova.getActivity().getSharedPreferences("base64", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sps.edit();
-                            for (int i=0; i < jsonArray.length(); i++) {
-                                Log.e("x", "" + jsonArray.get(i));
-                                listUrl.add(jsonArray.getString(i));
-                                editor.putString("base64Img", jsonArray.getString(i));
+                            for (int i=0; i < jsonArray2.length(); i++) {
+                                Log.e("x", "" + jsonArray2.get(i));
+                                listUrl.add(jsonArray2.getString(i));
+                                editor.putString("base64Img", jsonArray2.getString(i));
                                 editor.commit();
                                 Log.e("cg","spscg");
                             }
@@ -88,17 +79,17 @@ public class ImagePlugin extends CordovaPlugin {
 
                     }
                 });
-                    Intent intent = new Intent(this.cordova.getActivity(),ImageShowActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putStringArrayList("listUrl", null);
-                    bundle.putInt("imageNum", imageNum);
-                    bundle.putString("type","base64");
-                    intent.putExtras(bundle);
-                    this.cordova.startActivityForResult((CordovaPlugin) this, intent, 1);
-                    Log.e("x",""+isOpen);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                Intent intent = new Intent(this.cordova.getActivity(),ImageShowActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("listUrl", null);
+                bundle.putInt("imageNum", imageNum);
+                bundle.putString("type","base64");
+                intent.putExtras(bundle);
+                this.cordova.startActivityForResult((CordovaPlugin) this, intent, 1);
+                Log.e("x",""+isOpen);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             return true;
         }else {
             return false;
