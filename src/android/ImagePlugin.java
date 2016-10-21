@@ -35,11 +35,21 @@ public class ImagePlugin extends CordovaPlugin {
             isOpen=true;
             try {
                 listUrl=new ArrayList<String>();
-                JSONArray jsonArray = args.getJSONArray(0);
-                for (int i=0; i < jsonArray.length(); i++) {
-                    Log.e("x", "" + jsonArray.get(i));
-                    listUrl.add(jsonArray.getString(i));
-                }
+               this.cordova.getThreadPool().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        listUrl=new ArrayList<String>();
+                        try {
+                            JSONArray jsonArray = args.getJSONArray(0);
+                            for (int i=0; i < jsonArray.length(); i++) {
+                                Log.e("x", "" + jsonArray.get(i));
+                                listUrl.add(jsonArray.getString(i));
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
                 Intent intent = new Intent(this.cordova.getActivity(),ImageShowActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putStringArrayList("listUrl", listUrl);
